@@ -1,0 +1,107 @@
+<template>
+    <form action="" method="post">
+        <h2>Ajouter un t-shirt</h2>
+        <input type="text" name="" id="" placeholder="T-Shirt name" v-model="reference">
+        <input type="text" name="" id="" placeholder="T-Shirt color" v-model="color"> 
+        <input type="text" name="" id="" placeholder="T-Shirt description" v-model="description"> 
+        <!-- <input type="text" name="" id="" placeholder="T-Shirt url_img" v-model="url_img">  -->
+        <br>
+        <label for="">T-shirt id_brand : </label>
+        <select name="id_brand" id="" v-model="id_brand"> 
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>  
+        <br>
+        <input type="number" name="" id="" placeholder="0 EUR" v-model="price">
+        <br>
+        <input type="submit" value="send" @click="postTshirts($event)">
+    </form>
+</template>
+
+
+<script>
+import axios from 'axios';
+export default {
+    data(){
+        return {
+            tShirts: [],
+            id_brand : "",
+            reference : "",
+            price : "",
+            color: "",
+            description: "",
+            //url_img: "",
+        }
+    },
+    
+    methods: {
+        getTshirts () {
+        const url= "http://localhost:3030/api/products";
+            axios.get(url).then(res => {
+                this.tShirts = res.data;
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+
+        // postTshirts () {
+        //     var x = this.tShirtData;
+        //     console.log(x);
+        //     const url= "http://localhost:3030/api/products";
+        //     axios.post(url, x)
+        //       .then(function(res) {
+        //           console.log(res)
+        //     })
+        // },
+
+        postTshirts(e) {
+            e.preventDefault();
+            axios.post('http://localhost:3030/api/products', {
+            id_brand : this.id_brand,
+            reference : this.reference,
+            price : this.price,
+            color: this.color,
+            description: this.description,
+            //url_img: this.url_img,
+        })
+        .then(response => {
+            console.log(response)
+        })
+        // .then( function(){
+        //     document.location.reload(true);
+        // })
+        // .catch(error => {
+        //     this.errors.push(error)
+        // })
+        }
+    },
+
+    created() {
+        this.getTshirts();
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 50px;
+    font-family: 'Quicksand';
+    font-weight: 200;
+    text-transform: uppercase;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+form {
+    margin: 250px auto;
+}
+</style>
