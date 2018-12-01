@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3030;
+const multer = require('multer');
 const database = require("./database");
-
 
 app.use(cors());
 
@@ -11,6 +11,16 @@ app.use(express.json({extended : false}));
 
 console.log("@node-server > " + Date.now());
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, "src/assets/t-shirts/")
+  },
+  filename: function(req, file, cb) {
+      cb(null, Date.now() + "_" + file.originalname)
+  }
+});
+
+const upload = multer({ storage })
 
 //GET
 app.get('/api/products', (req, res) => {
@@ -20,13 +30,21 @@ app.get('/api/products', (req, res) => {
     }, null);
 });
 
-//POST
-app.post('/api/products', function(req, res) {
-  console.log("T-Shirt envoyé ! ", req.body);
+//POST v_02 :
+app.post('/api/products', upload.array("uploader"), function(req, res) {
+  console.log("T-Shirt envoyé ! ", req.body, "Files =>", req.files);
   database.createProducts(function(product) {
     res.send(product);
   }, req.body);
 });
+
+//POST
+// app.post('/api/products', function(req, res) {
+//   console.log("T-Shirt envoyé ! ", req.body);
+//   database.createProducts(function(product) {
+//     res.send(product);
+//   }, req.body);
+// });
 
 //DELETE
 app.delete('/api/products', (req, res) => {

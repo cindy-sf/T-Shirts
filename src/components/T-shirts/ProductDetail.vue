@@ -153,6 +153,7 @@ figure {
         height: 310px;
         margin: auto;
         position: absolute;
+        cursor: pointer;
         left: 110px;
         z-index: 2;
         top: 80px;
@@ -181,10 +182,6 @@ figure {
         display: block;
         margin-top: 5px;
         margin-bottom: 15px;
-    }
-    p {
-        margin-bottom: 25px;
-        width: 355px;
     }
     h3 {
         color: grey;
