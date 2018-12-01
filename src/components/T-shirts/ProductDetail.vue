@@ -1,39 +1,54 @@
 <template>
-    <div class="product-detail">
-
-        <router-link to="/">
-            <i class="fas fa-times"></i>
-        </router-link>
-
-        <figure>
-            <img :src="getImgSrc(this.$route.params.img)" alt="">
-        </figure>
-
-        <div class="product-detail-background">
-            <p>{{ this.$route.params.brand }}</p>
+    <div>
+        <div class="product-detail">
+        
+            <router-link to="/">
+                <i class="fas fa-times"></i>
+            </router-link>
+        
+            <figure>
+                <img :src="getImgSrc(this.$route.params.img)" alt="">
+            </figure>
+        
+            <div class="product-detail-background">
+                <p>{{ this.$route.params.brand }}</p>
+            </div>
+        
+           <div class="product-detail-info">
+                <h1>{{ this.$route.params.brand }}</h1>
+                <hr>
+                <h3>Ref: {{ this.$route.params.reference }}</h3>
+                <div class="editable">
+                    <textarea @change="editTshirt" v-model="description" spellcheck="false"></textarea>
+                </div>
+                    <p class="product-price">{{ this.$route.params.price }} $</p>
+                <button @click="addToCart(id)">Ajouter au panier</button>  
+                <i class="far fa-trash-alt" @click="deleteProduct(id)"></i>
+           </div>
+        
         </div>
 
-       <div class="product-detail-info">
-            <h1>{{ this.$route.params.brand }}</h1>
-            <hr>
-            <h3>Ref: {{ this.$route.params.reference }}</h3>
-            <p>{{ this.$route.params.description }}</p>
-            <p class="product-price">{{ this.$route.params.price }} $</p>
-            <button @click="addToCart(id)">Ajouter au panier</button>  
-            <i class="fas fa-pen"></i>
-            <i class="far fa-trash-alt" @click="deleteProduct(id)"></i>
-       </div>
+        <div class="modal" ref="tShirtModal">
+            <p>T-Shirt Modifié.</p>
+        </div>
 
     </div>
 </template>
 
 <script>
+
 import axios from 'axios';
 
     export default {
 
-        props: ['id', 'price', 'reference', 'isAddedToCart'],
+        props: ['id', 'price', 'reference', 'img', 'isAddedToCart'],
 
+        data() {
+            return {
+                description: this.$route.params.description,
+            }
+        },
+    
         methods: {
             getImgSrc (url) {
                 return url ? require(`@/assets/t-shirts/${url}`) : require('@/assets/t-shirts/404.png');
@@ -46,6 +61,29 @@ import axios from 'axios';
                     console.log(params.isAddedToCart)
                 this.productsAdded();
                 }
+            },
+
+            openModal() {
+                let modal = this.$refs.tShirtModal;
+                modal.classList.add('open');
+                window.setTimeout(function(){
+                    modal.classList.remove('open');
+                },2000);
+            },
+
+            editTshirt() {
+                    let params = this.$route.params;
+                    axios.patch('http://localhost:3030/api/products', {
+                    reference : params.reference,
+                    price : params.price,
+                    url_img: params.img,
+                    description: this.description,
+                    id : params.id,
+                })
+                .then(response => {
+                    console.log("response :", response);
+                    this.openModal();
+                })
             },
 
             deleteProduct (id) {
@@ -73,10 +111,6 @@ import axios from 'axios';
             },
 
         },
-        created() {
-            console.log("ID", this.$route.params)
-        },
-
     }
 
 </script>
@@ -149,7 +183,7 @@ figure {
         margin-bottom: 15px;
     }
     p {
-        margin: 20px 0px;
+        margin-bottom: 25px;
         width: 355px;
     }
     h3 {
@@ -159,11 +193,11 @@ figure {
         float: right;
         cursor: pointer;
         // margin: 25px 140px;
-        padding: 10px;
-        margin-top: 25px;
+        margin: 12px;
+        margin-top: 30px;
     }
-    .fa-pen {
-        padding-right: 150px;
+    .fa-trash-alt {
+        margin-right: 150px;
     }
 }
 
@@ -193,4 +227,61 @@ button {
     font-size: 20px;
 }
 
+textarea {
+    // width: 300px;
+    height: 100px;
+    resize: none;
+    text-align: left;
+    padding-left: 0;
+    margin: 20px 0px;
+    width: 355px;
+    border: none;
+    font-size: 15px;
+    
+}
+
+.editable {
+    width: auto;
+    height: auto;
+    position: relative;
+    &:before {
+        font-family: "Font Awesome 5 Free";
+        content: "\f304";
+        position: absolute;
+        right: 60px;
+        top: 50px;
+        font-weight:900;
+        display: none;
+    }
+    &:hover {
+        &:before {
+            display: block;
+        }
+    }
+}
+
+.modal {
+    width: 350px;
+    height: 50px;
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    left: 0;
+    right: 0;
+    top: -100px;
+    z-index: 5;
+    box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
+    background-color: #000;
+    color: #fff;
+    transition: all .3s ease-in;
+    p {
+        text-align: center;
+        font-size: 25px;
+        margin-top: 15px;
+    }
+}
+
+.modal.open {
+    top: 0px;
+}
 </style>

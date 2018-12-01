@@ -7,6 +7,9 @@
       <price-filter v-if="show" key="PriceFilter" @filtre-price="getfilteredData"></price-filter>
       <t-shirt-card v-for="(tShirt, index) in filteredData" :key="index" :tShirt="tShirt"></t-shirt-card>
       <no-tshirt key="No-Tshirt" v-if="filteredData.length === 0"></no-tshirt> 
+      <!-- <ul v-for="(une, index) in unique" :key="index">
+        <li>{{ unique[index] }}</li>
+      </ul> -->
     </transition-group>
 
 </template>
@@ -30,6 +33,7 @@ export default  {
       show: false,
       text: 'Afficher les filtres',
       icon: 'fas fa-angle-down',
+      unique: [],
     }
   },
 
@@ -73,7 +77,9 @@ export default  {
       axios.get(url).then(res => {
           this.tShirtz = res.data;
           this.getfilteredData();
-        }).catch(err => {
+          this.getUniqueBrand(this.tShirtz); 
+        })
+        .catch(err => {
           console.log(err)
         })
     },
@@ -86,9 +92,9 @@ export default  {
     },
 
     getUniqueBrand (arr) {
-      let unique = [...new Set(arr.map(item => item.brand))];
-      console.log("unique", unique)
-      return unique;
+      this.unique = [...new Set(arr.map(item => item.brand))];
+      // console.log("unique", unique)
+      return this.unique;
     },
     
     showFilters() {
@@ -103,7 +109,7 @@ export default  {
   },
 
   updated() {
-    console.log(this.tShirtz)
+    // console.log(this.tShirtz)
     this.$ebus.$on("price", payload => {
       this.price = payload;
     });
@@ -113,8 +119,8 @@ export default  {
 
   created() {
     this.getTshirts();
-    this.getUniqueBrand(this.tShirtz);
     // console.log(this.tShirtz)
+    
   },
 
 }

@@ -16,10 +16,10 @@ export default {
     },
 
     updated() {
-    this.$ebus.$emit("price", this.price);
+        this.$ebus.$emit("price", this.price);
+    },
     
-  },
-  created() {
+    created() {
       this.$ebus.$on("reset", payload => {
       this.price = 270;
     });

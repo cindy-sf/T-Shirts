@@ -10,7 +10,7 @@
             <div class="form-img"></div>
             <div class="form-info">
         
-                <h2>Créer un T-Shirt n'a jamais été aussi simple !</h2>
+                <h2>Créer un t-shirt n'a jamais été aussi simple !</h2>
                 <input type="text" name="" id="" placeholder="Référence" v-model="reference">
                 <input type="text" name="" id="" placeholder="Couleur" v-model="color"> 
                 <input type="text" name="" id="" placeholder="Description" v-model="description"> 
@@ -160,7 +160,7 @@ form {
     float: right;
     h2 {
         margin: 35px auto;
-        font-size: 23px;
+        font-size: 25px;
         max-width: 350px;
     }
     input {
@@ -211,7 +211,8 @@ input[type="submit"] {
     top: -100px;
     z-index: 5;
     box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
-    background-color: #fff;
+    background-color: #000;
+    color: #fff;
     transition: all .3s ease-in;
     p {
         text-align: center;
