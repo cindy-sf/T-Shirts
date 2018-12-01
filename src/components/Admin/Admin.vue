@@ -134,7 +134,7 @@ form {
     }
     label {
         float: left;
-        padding-left: 10px;
+        padding-left: 5px;
     }
     .fa-times {
         float: right;
@@ -172,7 +172,7 @@ form {
         border: 1px solid rgba(56, 44, 167, 0.5);
         color: #191548;
         &::placeholder {
-            padding-left: 10px;
+            padding-left: 5px;
         }
     }
 }

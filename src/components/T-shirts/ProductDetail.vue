@@ -192,7 +192,6 @@ figure {
     i {
         float: right;
         cursor: pointer;
-        // margin: 25px 140px;
         margin: 12px;
         margin-top: 30px;
     }
@@ -228,7 +227,6 @@ button {
 }
 
 textarea {
-    // width: 300px;
     height: 100px;
     resize: none;
     text-align: left;
