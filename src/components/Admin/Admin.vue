@@ -13,9 +13,9 @@
         <div class="form-info">
 
             <h2>Ajouter un T-Shirt n'a jamais été aussi simple !</h2>
-            <input type="text" name="" id="" placeholder="T-Shirt name" v-model="reference">
-            <input type="text" name="" id="" placeholder="T-Shirt color" v-model="color"> 
-            <input type="text" name="" id="" placeholder="T-Shirt description" v-model="description"> 
+            <input type="text" name="" id="" placeholder="Référence" v-model="reference">
+            <input type="text" name="" id="" placeholder="Couleur" v-model="color"> 
+            <input type="text" name="" id="" placeholder="Description" v-model="description"> 
             <!-- <input type="text" name="" id="" placeholder="T-Shirt url_img" v-model="url_img">  -->
             <br>
             <label for="">T-shirt id_brand : </label>
@@ -71,9 +71,9 @@ export default {
                 id_brand : this.id_brand,
                 reference : this.reference,
                 price : this.price,
+                //url_img: this.url_img,
                 color: this.color,
                 description: this.description,
-                //url_img: this.url_img,
             })
             .then(response => {
                 console.log(response)
@@ -107,8 +107,8 @@ button {
 }
 
 form {
-    width: 800px;
-    height: 500px;
+    width: 900px;
+    height: 550px;
     border-radius: 5px;
     box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
     margin: 110px auto;
@@ -134,13 +134,16 @@ form {
 }
 
 .form-img, .form-info {
-    height: 465px;
+    height: 515px;
     width: 50%;
 }
 
 .form-img {
     float: left;
-    background-color: rgb(0, 0, 0);
+    // background-color: rgb(0, 0, 0);
+    background: url('../../assets/t-shirts/bg-t-shirt.png') 0 0 no-repeat;
+    background-size: contain;
+    // filter: grayscale(100%);
 }
 
 .form-info {
@@ -152,11 +155,24 @@ form {
     }
     input {
         width: 80%;
-        margin: 15px auto;
+        margin: auto;
+        margin-bottom: 10px;
         display: block;
+        height: 30px;
+        border: 1px solid rgba(56, 44, 167, 0.5);
+        color: #191548;
     }
 }
 
+br + label {
+    text-align: center;
+    display: block;
+    + select {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+    }
+}
 
 input[type="submit"] {
     width: 80%;
