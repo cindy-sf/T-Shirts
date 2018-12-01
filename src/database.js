@@ -52,8 +52,21 @@ const deleteProducts = function deleteProducts(clbk, id) {
     });
 };
   
+//Update Product
+const updateProduct = function updateProduct(clbk, product) {
+    let sql = "UPDATE product SET reference = ?, price = ?, url_img = ?, description = ? WHERE id = ?";
+    const payload = [product.reference, product.price, product.url_img, product.description, product.id];
+    const query = connection.query(sql, payload, function (err, res, fields) {
+      if (err) return clbk(err, null);
+      return clbk(null, res);
+    });
+    console.log("last query =", query.sql)
+};
+
+
 module.exports = {
     getProducts,
     createProducts,
     deleteProducts,
+    updateProduct,
 };

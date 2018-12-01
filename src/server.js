@@ -40,4 +40,13 @@ app.delete('/api/products', (req, res) => {
   }, req.body.idProduct);
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+//UPDATE
+app.patch('/api/products', (req, res) => {
+  database.updateProduct((err, dataset) => {
+    console.log(`Product N°${req.body.id} updated.`);
+    if (err) return res.status(500).send(err);
+    else return res.status(200).send(dataset);
+  }, req.body); 
+});
+
+app.listen(port, () => console.log(`Listening on port ${port}.`));
