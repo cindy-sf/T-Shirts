@@ -4,7 +4,6 @@ const app = express();
 const port = process.env.PORT || 3030;
 const database = require("./database");
 
-// const frontEndURL = "http://localhost:8080";
 
 app.use(cors());
 
@@ -12,9 +11,6 @@ app.use(express.json({extended : false}));
 
 console.log("@node-server > " + Date.now());
 
-// app.get("/", function(req, res) {
-//     res.send(`<a href="${frontEndURL}">node ${frontEndURL}</a>`)
-// })
 
 //GET
 app.get('/api/products', (req, res) => {

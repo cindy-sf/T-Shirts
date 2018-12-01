@@ -20,6 +20,7 @@
             <p>{{ this.$route.params.description }}</p>
             <p class="product-price">{{ this.$route.params.price }} $</p>
             <button @click="addToCart(id)">Ajouter au panier</button>  
+            <i class="fas fa-pen"></i>
             <i class="far fa-trash-alt" @click="deleteProduct(id)"></i>
        </div>
 
@@ -31,7 +32,7 @@ import axios from 'axios';
 
     export default {
 
-        // props: ['id', 'price', 'reference', 'isAddedToCart'],
+        props: ['id', 'price', 'reference', 'isAddedToCart'],
 
         methods: {
             getImgSrc (url) {
@@ -158,8 +159,11 @@ figure {
         float: right;
         cursor: pointer;
         // margin: 25px 140px;
+        padding: 10px;
         margin-top: 25px;
-        padding-right: 225px;
+    }
+    .fa-pen {
+        padding-right: 150px;
     }
 }
 
