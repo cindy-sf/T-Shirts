@@ -2,8 +2,7 @@
     <div>
         <form id="uploader" ref="uploader" enctype="multipart/form-data" @submit="$event.preventDefault()">
             <div class="nav">
-                <!-- <label for="toggle" @click="resetValues">&#9776;</label> -->
-                <i class="fas fa-redo-alt" @click="resetValues"></i>
+                <i class="fas fa-redo-alt" @click="resetValues" ref="resetIcon"></i>
                 <router-link to="/">
                     <i class="fas fa-times"></i>
                 </router-link>
@@ -90,6 +89,7 @@ export default {
 
         resetValues() {
             Object.assign(this.$data, this.$options.data());
+             this.$refs.resetIcon.style.color = "rgb(0, 0, 0)";
         },
 
         checkedTshirt() {
@@ -118,6 +118,7 @@ export default {
                 console.log(response)
                 this.checkedTshirt();
                 this.openModal();
+                this.$refs.resetIcon.style.color = "rgb(56, 44, 167)";
             })
         },
 
