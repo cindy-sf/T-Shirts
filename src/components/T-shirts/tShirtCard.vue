@@ -117,8 +117,9 @@ export default {
     }
 
     p{
-        font-weight: 300;
         font-family: 'Montserrat', 'sans-serif';
+        font-weight: 300;
+        font-size: 17px;
     }
 }
 

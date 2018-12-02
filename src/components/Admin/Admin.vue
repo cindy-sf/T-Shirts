@@ -65,7 +65,7 @@ export default {
             color: "",
             description: "",
             //url_img: "",
-            mimes: ['image/jpg+png'],
+            mimes: ['image/jpg+png+gif'],
             multiple: true,
             files: [],
             axiosConfig:  {
