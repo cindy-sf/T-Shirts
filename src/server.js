@@ -54,8 +54,8 @@ app.post("/api/upload", upload.array("uploader"), function(req, res, next) {
 
 //DELETE
 app.delete('/api/products', (req, res) => {
-  console.log("T-Shirt supprimé ! ");
   database.deleteProducts(function(idProduct) {
+    console.log(`T-Shirt N°${req.body.idProduct} supprimé `);
     res.send(idProduct);
   }, req.body.idProduct);
 });
