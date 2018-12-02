@@ -48,8 +48,8 @@ app.post('/api/products', function(req, res) {
 
 //POST IMG
 app.post("/api/upload", upload.array("uploader"), function(req, res, next) {
-  console.log('upload request (files)', req.files)
-  res.send("walou")
+  console.log('upload request==>', req.files)
+  res.send(req.files)
 });
 
 //DELETE
