@@ -141,7 +141,7 @@ export default {
                 const fd = new FormData();
                 Array.from(files).forEach(f => {
                     fd.append("uploader", f, f.name);
-                    console.log("files =>", this.files[0].name)
+                    console.log("files =>", f.name, "SAme ???", this.files[0].name)
                 });
                 axios
                     .post(this.$backEndURL + "api/upload/", fd, this.axiosConfig)
@@ -326,6 +326,7 @@ input[type="file"] {
 select {
     height: 20px;
     display: block;
+    margin-top: 5px;
 }
 
 .form-group {

@@ -13,10 +13,10 @@ console.log("@node-server > " + Date.now());
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-      cb(null, "src/assets/t-shirts/")
+      cb(null, "src/assets/t-shirts") 
   },
   filename: function(req, file, cb) {
-      cb(null, Date.now() + "_" + file.originalname)
+      cb(null, file.originalname)
   }
 });
 
@@ -48,8 +48,8 @@ app.post('/api/products', function(req, res) {
 
 //POST IMG
 app.post("/api/upload", upload.array("uploader"), function(req, res, next) {
-  console.log('upload request==>', req.files)
-  res.send(req.files)
+  console.log('upload request==>', req.files[0].originalname)
+  res.send(req.files[0].originalname)
 });
 
 //DELETE
