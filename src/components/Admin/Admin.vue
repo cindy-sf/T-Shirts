@@ -2,7 +2,8 @@
     <div>
         <form id="uploader" ref="uploader" enctype="multipart/form-data" @submit="$event.preventDefault()">
             <div class="nav">
-                <label for="toggle">&#9776;</label>
+                <!-- <label for="toggle" @click="resetValues">&#9776;</label> -->
+                <i class="fas fa-redo-alt" @click="resetValues"></i>
                 <router-link to="/">
                     <i class="fas fa-times"></i>
                 </router-link>
@@ -85,6 +86,10 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
+        },
+
+        resetValues() {
+            Object.assign(this.$data, this.$options.data());
         },
 
         checkedTshirt() {
@@ -197,6 +202,12 @@ form {
     label {
         float: left;
         padding-left: 5px;
+    }
+    .fa-redo-alt {
+        float: left;
+        padding-left: 10px;
+        line-height: 35px;
+        cursor: pointer;
     }
     .fa-times {
         float: right;
