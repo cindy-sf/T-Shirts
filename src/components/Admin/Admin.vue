@@ -18,7 +18,7 @@
                 <br>
                 <div class="form-group">
                     <div class="select">
-                        <label for="id_brand">T-shirt id_brand : </label>
+                        <label for="id_brand">ID_brand : </label>
                         <br>
                         <select name="id_brand" id="" v-model="id_brand"> 
                             <option value="1">1</option>
@@ -326,8 +326,6 @@ input[type="file"] {
 select {
     height: 20px;
     display: block;
-    margin-left: 45px;
-    margin-top: 5px;
 }
 
 .form-group {
@@ -337,6 +335,7 @@ select {
     .select {
         width: 50%;
         height: 100%;
+        display: flex;
         float: left;
         + div {
             width: 50%;
@@ -350,7 +349,7 @@ select {
 label[for="id_brand"] {
     display: block;
     float: left;
-    width: 150px;
+    width: 100px;
 }
 
 </style>
