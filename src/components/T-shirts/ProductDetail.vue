@@ -199,6 +199,7 @@ figure {
 
 .product-price {
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 button {

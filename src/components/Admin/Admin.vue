@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form action="" method="post">
+        <form id="uploader" ref="uploader" enctype="multipart/form-data" @submit="$event.preventDefault()">
             <div class="nav">
                 <label for="toggle">&#9776;</label>
                 <router-link to="/">
@@ -23,6 +23,7 @@
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select>  
+                <input type="file" id="file_picker" ref="filePicker" :multiple="multiple === true || null"  @change="getLocalFiles($event.target.files)">
                 <br>
                 <input type="number" name="" id="" placeholder="0 EUR" v-model="price">
                 <br>
@@ -50,6 +51,15 @@ export default {
             color: "",
             description: "",
             //url_img: "",
+            mimes: ['image/jpg+png'],
+            multiple: true,
+            files: [],
+            axiosConfig:  {
+                onUploadProgress:progressEvent => {
+                        let loaded = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
+                        console.log(loaded);
+                    }
+                }
         }
     },
     
@@ -81,7 +91,7 @@ export default {
                 id_brand : this.id_brand,
                 reference : this.reference,
                 price : this.price,
-                //url_img: this.url_img,
+                url_img: this.files[0].name,
                 color: this.color,
                 description: this.description,
             })
@@ -90,12 +100,53 @@ export default {
                 this.checkedTshirt();
                 this.openModal();
             })
-        }
+        },
+
+            checkFilesExtensions([...files]) {
+                var errors = 0;
+                const log = [];
+
+                files.forEach(file => {
+                    console.log(this.mimes)
+                    if(!this.mimes.includes(file.type)){
+                        errors += 1;
+                        if(!log.includes(file.type)){
+                            log.push(file.type)
+                        }
+                    }
+                });
+                return {
+                    errors : errors !==0,
+                    log: log
+                }
+            },
+            getLocalFiles(files) {
+                const check = this.checkFilesExtensions(files);
+
+                if(check.errors) {
+                    this.files = files;
+                    const fd = new FormData();
+
+                    Array.from(files).forEach(f => {
+                        fd.append("uploader", f, f.name);
+                        console.log("files =>", this.files[0].name)
+                    });
+
+                    axios
+                        .post(this.$backEndURL + "api/upload/", fd, this.axiosConfig)
+                        .then(result => {
+                            console.log(result)
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                } else {
+                    console.error("file-type not allowed >", check.log)
+                }
+
+            }
     },
 
-    created() {
-        this.getTshirts();
-    }
 }
 </script>
 

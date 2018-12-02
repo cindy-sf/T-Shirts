@@ -34,8 +34,8 @@ const createProducts = function createProducts(clbk, payload) {
     console.log("---------------------------");
     console.log("Payload ==>", payload);
     console.log("---------------------------");
-    var data = [payload.id_brand, payload.reference, payload.price, payload.color,  payload.description];
-    var sql = "INSERT INTO product (id_brand, reference, price, color, description) VALUES (?, ?, ?, ?, ?)";
+    var data = [payload.id_brand, payload.reference, payload.price, payload.color, payload.url_img, payload.description];
+    var sql = "INSERT INTO product (id_brand, reference, price, color, url_img, description) VALUES (?, ?, ?, ?, ?, ?)";
     connection.query(sql, data, (err, res, cols) => {
       if (err) throw err;
       console.log(res);

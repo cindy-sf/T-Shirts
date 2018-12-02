@@ -31,20 +31,26 @@ app.get('/api/products', (req, res) => {
 });
 
 //POST v_02 :
-app.post('/api/products', upload.array("uploader"), function(req, res) {
-  console.log("T-Shirt envoyé ! ", req.body, "Files =>", req.files);
+// app.post('/api/products', upload.array("uploader"), function(req, res) {
+//   console.log("T-Shirt envoyé ! ", req.body, "Files =>", req.files);
+//   database.createProducts(function(product) {
+//     res.send(product);
+//   }, req.body);
+// });
+
+//POST
+app.post('/api/products', function(req, res) {
+  console.log("T-Shirt envoyé ! ", req.body);
   database.createProducts(function(product) {
     res.send(product);
   }, req.body);
 });
 
-//POST
-// app.post('/api/products', function(req, res) {
-//   console.log("T-Shirt envoyé ! ", req.body);
-//   database.createProducts(function(product) {
-//     res.send(product);
-//   }, req.body);
-// });
+//POST IMG
+app.post("/api/upload", upload.array("uploader"), function(req, res, next) {
+  console.log('upload request (files)', req.files)
+  res.send("walou")
+});
 
 //DELETE
 app.delete('/api/products', (req, res) => {
