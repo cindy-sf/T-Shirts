@@ -94,6 +94,10 @@ export default  {
     getUniqueBrand (arr) {
       this.unique = [...new Set(arr.map(item => item.brand))];
       // console.log("unique", unique)
+      for (let index = 0; index < this.unique.length; index++) {
+        const element = this.unique[index];
+        // console.log(element)
+      }
       return this.unique;
     },
     

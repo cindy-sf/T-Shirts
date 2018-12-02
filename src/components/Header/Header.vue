@@ -45,10 +45,10 @@ header {
   height: 70px;
   width: 100%;
   top: 0;
-  position: absolute;
+  position: fixed;
   text-align: center;
   background-color: #fff;
-  box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.192);
   padding: 0px 20px;
   z-index: 1;
   h1 {
