@@ -29,6 +29,19 @@ const getProducts = function getProducts(clbk, id) {
 
 };
 
+//Get Produits
+const getBrands = function getBrands(clbk, id) {
+
+    let sql = "SELECT DISTINCT name FROM brand";
+
+    connection.query(sql, [id], (error, results, fields) => {
+      if (error) return clbk(error, null);
+      return clbk(null, results);
+    });
+
+};
+
+
 // Create Products
 const createProducts = function createProducts(clbk, payload) {
     console.log("---------------------------");
@@ -46,10 +59,11 @@ const createProducts = function createProducts(clbk, payload) {
 //Delete Product
 const deleteProducts = function deleteProducts(clbk, id) {
     let sql = "DELETE FROM `product` WHERE `product`.`id` = ?";
-    connection.query(sql, [id], function (err, res, fields) {
+    const query = connection.query(sql, [id], function (err, res, fields) {
       if (err) throw err;
       return clbk(res);
     });
+    console.log("Last Query :", query.sql)
 };
   
 //Update Product
@@ -66,6 +80,7 @@ const updateProduct = function updateProduct(clbk, product) {
 
 module.exports = {
     getProducts,
+    getBrands,
     createProducts,
     deleteProducts,
     updateProduct,

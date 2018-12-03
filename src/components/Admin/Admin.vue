@@ -30,7 +30,7 @@
 
                     <div>
                         <label for="file-upload" class="custom-file-upload">
-                            <i class="far fa-images"></i> Ajouter une image
+                            <i class="far fa-images"></i> {{ inputFileText }}
                         </label>
                         <input type="file" id="file-upload" ref="filePicker" :multiple="multiple === true || null"  @change="getLocalFiles($event.target.files)"/>
                     </div>
@@ -68,6 +68,7 @@ export default {
             mimes: ['image/jpg+png+gif'],
             multiple: true,
             files: [],
+            inputFileText : 'Ajouter une image',
             axiosConfig:  {
                 onUploadProgress:progressEvent => {
                         let loaded = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
@@ -147,12 +148,13 @@ export default {
                 const fd = new FormData();
                 Array.from(files).forEach(f => {
                     fd.append("uploader", f, f.name);
-                    console.log("files =>", f.name, "SAme ???", this.files[0].name)
+                    // console.log("files =>", f.name, "SAme ???", this.files[0].name)
                 });
                 axios
                     .post(this.$backEndURL + "api/upload/", fd, this.axiosConfig)
                     .then(result => {
-                        console.log(result)
+                        console.log(result);
+                        this.inputFileText = "✓";
                     })
                     .catch(err => {
                         console.log(err);

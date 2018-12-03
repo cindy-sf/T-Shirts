@@ -7,9 +7,6 @@
       <price-filter v-if="show" key="PriceFilter" @filtre-price="getfilteredData"></price-filter>
       <t-shirt-card v-for="(tShirt, index) in filteredData" :key="index" :tShirt="tShirt"></t-shirt-card>
       <no-tshirt key="No-Tshirt" v-if="filteredData.length === 0"></no-tshirt> 
-      <!-- <ul v-for="(une, index) in unique" :key="index">
-        <li>{{ unique[index] }}</li>
-      </ul> -->
     </transition-group>
 
 </template>

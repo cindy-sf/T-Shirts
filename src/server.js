@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-//GET
+//GET PRODUCTS :
 app.get('/api/products', (req, res) => {
     database.getProducts( (err, product) => {
       if (err) return res.status(500).send(err);
@@ -30,15 +30,15 @@ app.get('/api/products', (req, res) => {
     }, null);
 });
 
-//POST v_02 :
-// app.post('/api/products', upload.array("uploader"), function(req, res) {
-//   console.log("T-Shirt envoyé ! ", req.body, "Files =>", req.files);
-//   database.createProducts(function(product) {
-//     res.send(product);
-//   }, req.body);
-// });
+//GET BRANDS :
+app.get('/api/brands', (req, res) => {
+  database.getBrands( (err, product) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send(product);
+  }, null);
+});
 
-//POST
+//POST PRODUCT :
 app.post('/api/products', function(req, res) {
   console.log("T-Shirt envoyé ! ", req.body);
   database.createProducts(function(product) {
@@ -46,13 +46,13 @@ app.post('/api/products', function(req, res) {
   }, req.body);
 });
 
-//POST IMG
+//POST IMG : 
 app.post("/api/upload", upload.array("uploader"), function(req, res, next) {
   console.log('upload request==>', req.files[0].originalname)
   res.send(req.files[0].originalname)
 });
 
-//DELETE
+//DELETE PRODUCT :
 app.delete('/api/products', (req, res) => {
   database.deleteProducts(function(idProduct) {
     console.log(`T-Shirt N°${req.body.idProduct} supprimé `);
@@ -60,7 +60,7 @@ app.delete('/api/products', (req, res) => {
   }, req.body.idProduct);
 });
 
-//UPDATE
+//UPDATE PRODUCT :
 app.patch('/api/products', (req, res) => {
   database.updateProduct((err, dataset) => {
     console.log(`Product N°${req.body.id} updated.`);

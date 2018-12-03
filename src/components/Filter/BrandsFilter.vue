@@ -9,10 +9,33 @@
 
 <script>
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import axios from 'axios';
 
 export default {
 
     props:  ['tShirt'],
+
+    data() {
+      return {
+        tShirtBrand: [],
+      }
+    },
+
+    methods: {
+      getBrands () {
+      const url= "http://localhost:3030/api/brands";
+      axios.get(url).then(res => {
+          this.tShirtBrand = res.data;
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      },
+    },
+
+    created() {
+      this.getBrands();
+    },
 
 }
 

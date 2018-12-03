@@ -29,7 +29,7 @@
         </div>
 
         <div class="modal" ref="tShirtModal">
-            <p>T-Shirt Modifié.</p>
+            <p>Produit Modifié.</p>
         </div>
 
     </div>
@@ -153,7 +153,7 @@ figure {
         height: 310px;
         margin: auto;
         position: absolute;
-        cursor: pointer;
+        // cursor: pointer;
         left: 110px;
         z-index: 2;
         top: 80px;

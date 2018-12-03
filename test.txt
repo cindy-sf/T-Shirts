@@ -1,0 +1,18 @@
+new Vue({
+  el: ".vue",
+  data() {
+    return {
+      reviews: [{name: 'Derek', description: 'Some comment'}, {name: 'Joe', description: 'Some comment'},{name: 'Mike', description: 'Some comment'}, {name: 'Ron', description: 'Some comment'},{name: 'Dii', description: 'Some comment'}, {name: 'Lonnie', description: 'Some comment'},{name: 'Paul', description: 'Some comment'}, {name: 'Mike', description: 'Some comment'},{name: 'Jody', description: 'Some comment'}, {name: 'Ryn', description: 'Some comment'},{name: 'Jord', description: 'Some comment'}, {name: 'Milly', description: 'Some comment'},{name: 'Judy', description: 'Some comment'}, {name: 'Vanilly', description: 'Some comment'},{name: 'Nolan', description: 'Some comment'}, {name: 'Pino', description: 'Some comment'},{name: 'Ryne', description: 'Some comment'}, {name: 'Scott', description: 'Some comment'},{name: 'Son', description: 'Some comment'}, {name: 'Bann', description: 'Some comment'},],
+      commentsToShow: 2
+    };
+  }  
+})
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<div class="container vue">
+  <div v-if="commentIndex < reviews.length" v-for="commentIndex in commentsToShow"> 
+    <div>{{reviews[commentIndex].name}} says:</div>
+    <i><div>{{reviews[commentIndex].description}}</div></i>
+    <hr />
+  </div>
+  <button @click="commentsToShow += 2">show more reviews</button>
+</div>
