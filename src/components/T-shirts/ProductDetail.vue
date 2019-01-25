@@ -63,7 +63,7 @@ import axios from 'axios';
                 }
             },
 
-            openModal() {
+            openModal () {
                 let modal = this.$refs.tShirtModal;
                 modal.classList.add('open');
                 window.setTimeout(function(){
@@ -71,7 +71,7 @@ import axios from 'axios';
                 },2000);
             },
 
-            editTshirt() {
+            editTshirt () {
                     let params = this.$route.params;
                     axios.patch('http://localhost:3030/api/products', {
                     reference : params.reference,
@@ -259,7 +259,7 @@ textarea {
 .modal {
     width: 350px;
     height: 50px;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 70px;
     left: 0;
@@ -280,4 +280,5 @@ textarea {
 .modal.open {
     top: 0px;
 }
+
 </style>

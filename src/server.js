@@ -48,7 +48,7 @@ app.post('/api/products', function(req, res) {
 
 //POST IMG : 
 app.post("/api/upload", upload.array("uploader"), function(req, res, next) {
-  console.log('upload request==>', req.files[0].originalname)
+  console.log('upload request ==>', req.files[0].originalname)
   res.send(req.files[0].originalname)
 });
 

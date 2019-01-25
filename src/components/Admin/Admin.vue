@@ -18,14 +18,11 @@
                 <br>
                 <div class="form-group">
                     <div class="select">
-                        <label for="id_brand">ID_brand : </label>
+                        <label for="id_brand">Marque : </label>
                         <br>
-                        <select name="id_brand" id="" v-model="id_brand"> 
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>  
+                        <select name="id_brand" v-model="id_brand">
+                            <option v-for="(brand, index) in brands" :key="index" :value="brand.id">{{ brand.name }}</option>
+                        </select>
                     </div>
 
                     <div>
@@ -38,7 +35,7 @@
                 </div>
 
                 <br>
-                <input type="number" name="" id="" placeholder="0 EUR" v-model="price">
+                <input type="number" placeholder="0 $" v-model="price" value="20" min="20" max="270">
                 <br>
                 <input type="submit" :value="submitValue" @click="postTshirts($event)">
             </div>
@@ -64,17 +61,18 @@ export default {
             price : "",
             color: "",
             description: "",
+            brands: [],
             //url_img: "",
             mimes: ['image/jpg+png+gif'],
             multiple: true,
             files: [],
-            inputFileText : 'Ajouter une image',
+            inputFileText : 'Ajoutez une image',
             axiosConfig:  {
                 onUploadProgress:progressEvent => {
                         let loaded = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
                         console.log(loaded);
                     }
-                }
+            }
         }
     },
     
@@ -136,7 +134,7 @@ export default {
                 }
             });
             return {
-                errors : errors !==0,
+                errors : errors !== 0,
                 log: log
             }
         },
@@ -148,7 +146,6 @@ export default {
                 const fd = new FormData();
                 Array.from(files).forEach(f => {
                     fd.append("uploader", f, f.name);
-                    // console.log("files =>", f.name, "SAme ???", this.files[0].name)
                 });
                 axios
                     .post(this.$backEndURL + "api/upload/", fd, this.axiosConfig)
@@ -162,7 +159,24 @@ export default {
             } else {
                 console.error("file-type not allowed >", check.log)
             }
+        },
+
+        getBrands() {
+            const url = "http://localhost:3030/api/brands";
+            axios
+            .get(url)
+            .then(res => {
+                this.brands = res.data;
+                console.log(this.brands);
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
+    },
+
+    created() {
+        this.getBrands();
     },
 
 }
@@ -278,7 +292,7 @@ input[type="submit"] {
 .modal {
     width: 350px;
     height: 50px;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 70px;
     left: 0;
@@ -300,26 +314,7 @@ input[type="submit"] {
     top: 0px;
 }
 
-@keyframes toggleColor {
-    25% {
-        filter: grayscale(200%);
-    }
-
-    50% {
-        filter: hue-rotate(90deg);
-    }
-
-    75% {
-        filter: grayscale(200%);
-    }
-
-    100% {
-        filter: none;
-    }
-}
-
-//Input
-
+//Input File :
 input[type="file"] {
     display: none;
 }
@@ -351,11 +346,15 @@ select {
         width: 50%;
         height: 100%;
         display: flex;
+        flex-wrap: wrap;
         float: left;
         + div {
             width: 50%;
             height: 100;
             float: right;
+        }
+        option {
+            text-transform: capitalize;
         }
     }
     
@@ -365,6 +364,24 @@ label[for="id_brand"] {
     display: block;
     float: left;
     width: 100px;
+}
+
+@keyframes toggleColor {
+    25% {
+        filter: grayscale(200%);
+    }
+
+    50% {
+        filter: hue-rotate(90deg);
+    }
+
+    75% {
+        filter: grayscale(200%);
+    }
+
+    100% {
+        filter: none;
+    }
 }
 
 </style>

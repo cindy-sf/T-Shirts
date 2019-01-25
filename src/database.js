@@ -29,10 +29,10 @@ const getProducts = function getProducts(clbk, id) {
 
 };
 
-//Get Produits
+//Get Brands
 const getBrands = function getBrands(clbk, id) {
 
-    let sql = "SELECT DISTINCT name FROM brand";
+    let sql = "SELECT * FROM brand";
 
     connection.query(sql, [id], (error, results, fields) => {
       if (error) return clbk(error, null);
